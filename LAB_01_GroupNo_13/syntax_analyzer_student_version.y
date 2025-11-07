@@ -25,10 +25,20 @@ void yyerror(char *s)
 
 %}
 
-%token IF ELSE FOR WHILE DO BREAK INT CHAR FLOAT DOUBLE VOID RETURN SWITCH CASE DEFAULT CONTINUE PRINTLN
-%token INCOP DECOP NOT MULOP ADDOP RELOP LOGICOP ASSIGNOP
-%token LPAREN RPAREN LCURL RCURL LTHIRD RTHIRD COMMA SEMICOLON
+%token IF ELSE FOR WHILE DO BREAK INT CHAR FLOAT DOUBLE VOID RETURN SWITCH CASE DEFAULT CONTINUE PRINTLN PRINTF GOTO
+%token ADDOP MULOP INCOP DECOP RELOP ASSIGNOP LOGICOP NOT
+%token LPAREN RPAREN LCURL RCURL LTHIRD RTHIRD COMMA SEMICOLON COLON
 %token ID CONST_INT CONST_FLOAT
+
+/* Operator precedence and associativity declarations */
+%right ASSIGNOP          /* lowest precedence */
+%left LOGICOP
+%nonassoc RELOP
+%left ADDOP
+%left MULOP
+%right NOT
+%right INCOP DECOP       /* highest precedence among these */
+
 
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
@@ -525,5 +535,4 @@ int main(int argc, char *argv[])
 	fclose(yyin);
 	
 	return 0;
-
 }
